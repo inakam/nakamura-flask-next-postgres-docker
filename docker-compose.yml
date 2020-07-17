@@ -1,0 +1,27 @@
+version: "3"
+services:
+  flask:
+    build:
+      context: ./docker-images-flask
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+  react:
+    build:
+      context: ./docker-images-react
+      dockerfile: Dockerfile
+    volumes:
+      - ./docker-images-react:/usr/src/app
+    ports:
+      - 3000:3000
+    stdin_open: true
+  appdb:
+    image: postgres:12.3
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=POSTGRESDB
+    ports:
+      - 5432:5432
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d # docker-entrypoint-initdb.d内のスクリプトは起動時に1度だけ実行される
