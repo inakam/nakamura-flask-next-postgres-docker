@@ -1,16 +1,23 @@
-* Go to the project directory (in where your `Dockerfile` is, containing your `app` directory)
-* Build your Flask image:
+* Build containers:
 
 ```bash
-docker build -t myimage .
+docker-compose build
 ```
 
-* Run a container based on your image:
+* Run containers :
 
 ```bash
-docker run -d --name mycontainer -p 80:80 myimage
+docker-compose up
 ```
 
-...and you have an optimized Flask server in a Docker container.
+You should be able to check it in your Docker container's URL, for example:
 
-You should be able to check it in your Docker container's URL, for example: <a href="http://192.168.99.100" target="_blank">http://192.168.99.100</a> or <a href="http://127.0.0.1" target="_blank">http://127.0.0.1</a>
+React(Frontend) : <a href="http://localhost:3000" target="_blank">http://localhost:3000</a>
+
+Flask(Backend) : <a href="http://localhost:5000" target="_blank">http://localhost:5000</a>
+
+You can check DB server, for example:
+
+```bash
+psql -h localhost -U postgres POSTGRESDB
+```
