@@ -4,10 +4,10 @@ COPY install-nginx-debian.sh /
 
 RUN bash /install-nginx-debian.sh
 
-# EXPOSE 80
+EXPOSE 80
 
 # Expose 443, in case of LTS / HTTPS
-# EXPOSE 443
+EXPOSE 443
 
 # Install uWSGI
 RUN pip install uwsgi
@@ -46,8 +46,7 @@ ENV NGINX_WORKER_PROCESSES 1
 # By default, Nginx listens on port 80.
 # To modify this, change LISTEN_PORT environment variable.
 # (in a Dockerfile or with an option for `docker run`)
-# ENV LISTEN_PORT 80
-ENV LISTEN_PORT 5000
+ENV LISTEN_PORT 80
 
 # They will be served by Nginx directly, without being handled by uWSGI
 ENV STATIC_URL /static
