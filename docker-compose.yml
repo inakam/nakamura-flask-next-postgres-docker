@@ -1,4 +1,4 @@
-version: "3"
+version: "3.7"
 services:
   flask-api:
     build:
@@ -10,13 +10,15 @@ services:
     build:
       context: ./docker-images-next
       dockerfile: Dockerfile
+      target: dev # 開発環境はdev、本番環境はprod（/docker-images-next/Dockerfileに記述あり）
     volumes:
       - ./docker-images-next:/usr/src/app
-      - '/usr/src/app/node_modules'
+      - /usr/src/app/node_modules
+      - /usr/src/app/.next
     ports:
       - 3000:3000
     depends_on:
-      - "flask-api"
+      - flask-api
     stdin_open: true
   postgres-db:
     image: postgres:12.3
