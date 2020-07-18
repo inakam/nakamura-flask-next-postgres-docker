@@ -1,10 +1,16 @@
-* Build containers:
+- Setting node_modules
+
+```bash
+cd docker-images-next && yarn install
+```
+
+- Build containers:
 
 ```bash
 docker-compose build
 ```
 
-* Run containers :
+- Run containers :
 
 ```bash
 docker-compose up
