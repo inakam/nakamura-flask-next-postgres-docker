@@ -18,7 +18,7 @@ services:
     depends_on:
       - "flask-api"
     stdin_open: true
-  db:
+  postgres-db:
     image: postgres:12.3
     environment:
       - POSTGRES_USER=postgres
