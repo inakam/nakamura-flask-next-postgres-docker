@@ -1,6 +1,6 @@
 FROM python:3.8-buster
 
-COPY install-nginx-debian.sh /
+COPY install/script/install-nginx-debian.sh /
 
 RUN bash /install-nginx-debian.sh
 
@@ -15,13 +15,13 @@ RUN pip install uwsgi flask flask-sqlalchemy psycopg2
 # Remove default configuration from Nginx
 RUN rm /etc/nginx/conf.d/default.conf
 # Copy the base uWSGI ini file to enable default dynamic uwsgi process number
-COPY uwsgi.ini /etc/uwsgi/
+COPY install/conf/uwsgi.ini /etc/uwsgi/
 
 # Install Supervisord
 RUN apt-get update && apt-get install -y supervisor \
     && rm -rf /var/lib/apt/lists/*
 # Custom Supervisord config
-COPY supervisord-debian.conf /etc/supervisor/conf.d/supervisord.conf
+COPY install/conf/supervisord-debian.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Which uWSGI .ini file should be used, to make it customizable
 ENV UWSGI_INI /app/uwsgi.ini
@@ -59,11 +59,11 @@ ENV STATIC_INDEX 0
 ENV PYTHONPATH=/app
 
 # Copy start.sh script that will check for a /app/prestart.sh script and run it before starting the app
-COPY start.sh /start.sh
+COPY install/script/start.sh /start.sh
 RUN chmod +x /start.sh
 
 # Copy the entrypoint that will generate Nginx additional configs
-COPY entrypoint.sh /entrypoint.sh
+COPY install/script/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
