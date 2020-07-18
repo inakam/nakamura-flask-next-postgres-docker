@@ -9,10 +9,8 @@ EXPOSE 80
 # Expose 443, in case of LTS / HTTPS
 EXPOSE 443
 
-# Install uWSGI
-RUN pip install uwsgi
-# Install flask
-RUN pip install flask
+# Install uWSGI flask SQLAlchemy psycopg2
+RUN pip install uwsgi flask flask-sqlalchemy psycopg2
 
 # Remove default configuration from Nginx
 RUN rm /etc/nginx/conf.d/default.conf
