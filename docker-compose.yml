@@ -6,12 +6,12 @@ services:
       dockerfile: Dockerfile
     ports:
       - 5000:80
-  react-client:
+  next-client:
     build:
-      context: ./docker-images-react
+      context: ./docker-images-next
       dockerfile: Dockerfile
     volumes:
-      - ./docker-images-react:/usr/src/app
+      - ./docker-images-next:/usr/src/app
       - '/usr/src/app/node_modules'
     ports:
       - 3000:3000
