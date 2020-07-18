@@ -6,6 +6,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - 5000:80
+    volumes:
+      - ./docker-images-flask/app:/app
   next-client:
     build:
       context: ./docker-images-next
