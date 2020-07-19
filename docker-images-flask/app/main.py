@@ -46,6 +46,16 @@ def hello():
     return message
 
 
+@app.route("/db")
+def db_handler():
+    db_user_data = User.query.all()
+    user_schema = UserSchema(many=True)
+    return make_response(jsonify({
+        'code': 200,
+        'users': user_schema.dump(db_user_data)
+    }))
+
+
 tasks = [
     {
         'id': 1,
@@ -63,16 +73,6 @@ tasks = [
 @app.route("/tasks")
 def tasks_handler():
     return jsonify(tasks=tasks)
-
-
-@app.route("/db")
-def db_handler():
-    db_user_data = User.query.all()
-    user_schema = UserSchema(many=True)
-    return make_response(jsonify({
-        'code': 200,
-        'users': user_schema.dump(db_user_data)
-    }))
 
 
 if __name__ == "__main__":
